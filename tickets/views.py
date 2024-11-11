@@ -7,6 +7,8 @@ from rest_framework.response import Response
 from rest_framework import status, filters
 from rest_framework.views import APIView
 from rest_framework import mixins, generics, viewsets
+from rest_framework.authentication import BasicAuthentication, TokenAuthentication
+from rest_framework.permissions import IsAuthenticated
 
 
 
@@ -175,12 +177,16 @@ class Mixins_pk(mixins.RetrieveModelMixin,
 class Generic_ListCreate(generics.ListCreateAPIView):
     queryset = Guest.objects.all()
     serializer_class = GuestSerializer
+    authentication_classes = [TokenAuthentication]
+    # permission_classes = [IsAuthenticated]
 
 
 # 6.1 with rest_framework and with model (CBV with generics)
 class Generic_pk(generics.RetrieveUpdateAPIView):
     queryset = Guest.objects.all()
     serializer_class = GuestSerializer
+    authentication_classes = [TokenAuthentication]
+    # permission_classes = [IsAuthenticated]
 
 
 
