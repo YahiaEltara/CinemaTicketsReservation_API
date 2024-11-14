@@ -59,7 +59,9 @@ urlpatterns = [
     path('api/auth-token', obtain_auth_token),
 
 
-    path('post/generics/<int:pk>', views.Post_pk.as_view())
+
+    path('post/generics/', views.Post_List_Create.as_view()),
+    path('post/generics/<int:pk>', views.Post_pk.as_view()),
 
 
 ]

@@ -250,6 +250,13 @@ def create_reservations(request):
 
 
 
+class Post_List_Create(generics.ListCreateAPIView):
+    permission_classes = [IsAuthorOrReadOnly]
+
+    queryset = Post.objects.all()
+    serializer_class = PostSerializer
+
+
 class Post_pk(generics.RetrieveUpdateDestroyAPIView):
     permission_classes = [IsAuthorOrReadOnly]
 
