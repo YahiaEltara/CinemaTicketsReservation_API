@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.http.response import JsonResponse
-from .serializers import GuestSerializer, MovieSerializer, ReservationSerializer
-from .models import Guest, Movie, Reservation
+from .serializers import GuestSerializer, MovieSerializer, ReservationSerializer, PostSerializer
+from .models import Guest, Movie, Reservation, Post
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import status, filters
@@ -9,6 +9,7 @@ from rest_framework.views import APIView
 from rest_framework import mixins, generics, viewsets
 from rest_framework.authentication import BasicAuthentication, TokenAuthentication
 from rest_framework.permissions import IsAuthenticated
+from .permissions import IsAuthorOrReadOnly
 
 
 
@@ -247,3 +248,10 @@ def create_reservations(request):
 
 
 
+
+
+class Post_pk(generics.RetrieveUpdateDestroyAPIView):
+    permission_classes = [IsAuthorOrReadOnly]
+
+    queryset = Post.objects.all()
+    serializer_class = PostSerializer
